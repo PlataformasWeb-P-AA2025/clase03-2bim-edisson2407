@@ -118,3 +118,35 @@ def crear_pais(request):
     diccionario = {'formulario': formulario}
 
     return render(request, 'crearPais.html', diccionario)
+
+def editar_pais(request, id):
+    """
+    Vista para editar un registro de País existente.
+    """
+    pais = Pais.objects.get(pk=id)
+    if request.method == 'POST':
+        formulario = PaisForm(request.POST, instance=pais)
+        if formulario.is_valid():
+            formulario.save()
+            return redirect(index)
+    else:
+        formulario = PaisForm(instance=pais)
+    diccionario = {'formulario': formulario}
+    return render(request, 'editarPais.html', diccionario)
+
+
+def eliminar_pais(request, id):
+    """
+    Vista para eliminar un registro de País.
+    """
+    pais = Pais.objects.get(pk=id)
+    pais.delete()
+    return redirect(index)
+
+def listar_paises(request):
+    """
+    Vista para mostrar todos los países registrados.
+    """
+    paises = Pais.objects.all()
+    return render(request, 'listarPaises.html', {'paises': paises})
+

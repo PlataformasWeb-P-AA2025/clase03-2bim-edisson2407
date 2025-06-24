@@ -23,4 +23,6 @@ urlpatterns = [
     path('pais/crear', views.crear_pais, name='crear_pais'),
     path('pais/<int:id>/editar', views.editar_pais, name='editar_pais'),
     path('pais/<int:id>/eliminar', views.eliminar_pais, name='eliminar_pais'),
+    path('', views.index, name='index'), 
+    path('pais/listar', views.listar_paises, name='listar_paises')
  ]
