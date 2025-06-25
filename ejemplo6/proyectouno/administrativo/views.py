@@ -66,10 +66,18 @@ def editar_matricula(request, id):
     return render(request, 'crear_matricula.html', diccionario)
 
 def detalle_estudiante(request, id):
-    """
-
-    """
-
     estudiante = Estudiante.objects.get(pk=id)
-    informacion_template = {'e': estudiante}
-    return render(request, 'detalle_estudiante.html', informacion_template)
+    matriculas = estudiante.obtener_matriculas()  
+
+    
+    modulos_con_costos = [matricula.modulo for matricula in matriculas]
+    total = sum(modulo.costo for modulo in modulos_con_costos)
+
+    contexto = {
+        'e': estudiante,
+        'matriculas': matriculas,
+        'modulos': modulos_con_costos,
+        'total': total,
+    }
+    return render(request, 'detalle_estudiante.html', contexto)
+

@@ -42,6 +42,7 @@ class Modulo(models.Model):
 
     nombre = models.CharField(max_length=30, \
             choices=opciones_modulo)
+    costo = models.DecimalField(max_digits=6, decimal_places=2)
     estudiantes = models.ManyToManyField(Estudiante, through='Matricula')
 
     def __str__(self):
